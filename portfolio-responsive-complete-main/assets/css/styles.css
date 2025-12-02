@@ -369,30 +369,35 @@ img {
 }
 
 /* ===== PROJECTS SECTION (Image on top, description below, two columns) ===== */
+/* ===== PROJECTS SECTION (Image on top, description below) ===== */
 .projects__container-row {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;   /* Mobile = 1 column */
     gap: 2.5rem;
     margin-top: 2rem;
 }
 
 .project__item {
-    height: 39rem;
+    height: 100%;                 /* allow equal card stretching */
+    min-height: 550px;            /* FIX: same height for all project cards */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     background: #fff;
     border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     padding: 2rem 1rem;
-    max-width: 100%;
+    width: 100%;
 }
 
+/* ===== FIX: make all images same height + same shape ===== */
 .project__img {
     width: 100%;
-    max-width: 320px;
+    aspect-ratio: 16 / 9;         /* uniform shape */
+    object-fit: cover;            /* clean cropping */
     border-radius: 0.75rem;
-    object-fit: cover;
+    display: block;
     margin-bottom: 1.5rem;
     box-shadow: 0 1px 6px rgba(0,0,0,0.08);
 }
@@ -420,6 +425,31 @@ img {
     margin: 0.5rem 0 0 0;
     padding: 0 1rem;
 }
+
+/* ===== MAKE IT 2×2 ON LARGE SCREENS ===== */
+@media screen and (min-width: 768px) {
+    .projects__container-row {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 3rem;
+        align-items: stretch;  /* ensure equal card heights */
+    }
+
+    .project__img {
+        max-width: 420px;      /* optional: slightly wider on big screens */
+    }
+}
+
+/* ===== EVEN WIDER SCREENS (Better centering) ===== */
+@media screen and (min-width: 1200px) {
+    .projects__container-row {
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        gap: 3rem;
+    }
+}
+
+
+
 
 @media screen and (min-width: 1200px) {
     .projects__container-row {
